@@ -23,7 +23,7 @@ struct TestSetup {
 
 fn setup_with_campaign(goal: i128) -> TestSetup {
     let env = Env::default();
-    env.mock_all_auths();
+    env.mock_all_auths_allowing_non_root_auth();
 
     let token_admin = Address::generate(&env);
     let token = create_token(&env, &token_admin);

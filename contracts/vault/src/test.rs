@@ -37,7 +37,7 @@ struct TestSetup {
 
 fn setup() -> TestSetup {
     let env = Env::default();
-    env.mock_all_auths();
+    env.mock_all_auths_allowing_non_root_auth();
     let admin = Address::generate(&env);
     let controller = Address::generate(&env);
     let contract_id = env.register(VaultContract, ());
