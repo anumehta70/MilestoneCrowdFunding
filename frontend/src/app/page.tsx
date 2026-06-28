@@ -13,7 +13,7 @@ import type { AsyncStatus, CampaignStatus } from "@/types/domain";
 // doesn't debit or require this account to be funded, it's only used to
 // build a well-formed transaction envelope for simulation.
 const VIEWER_ACCOUNT =
-  "GAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJEU";
+  "GBD4SEJ5AXWY3TODGXGBKLGEHFRVZN4TTMZFSQE3QD5SV5Q5LPKVH2L4";
 
 export default function HomePage() {
   const [status, setStatus] = useState<AsyncStatus>("loading");

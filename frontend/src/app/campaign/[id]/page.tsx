@@ -12,7 +12,7 @@ import { approveMilestone, getCampaignDetail, releaseMilestone } from "@/lib/api
 import { formatCountdown, formatPercent, shortenAddress, stroopsToXlm } from "@/lib/format";
 import type { AsyncStatus, CampaignDetail } from "@/types/domain";
 
-const VIEWER_ACCOUNT = "GAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJEU";
+const VIEWER_ACCOUNT = "GBD4SEJ5AXWY3TODGXGBKLGEHFRVZN4TTMZFSQE3QD5SV5Q5LPKVH2L4";
 
 export default function CampaignDetailPage() {
   const params = useParams<{ id: string }>();
