@@ -43,7 +43,7 @@ jobs:
 
       - name: Configure deployer identity
         run: |
-          stellar keys generate --global deployer --network testnet --fund
+          stellar keys generate deployer --network testnet --fund
 
       - name: Build all contracts
         run: |
