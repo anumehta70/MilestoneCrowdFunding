@@ -43,9 +43,7 @@ jobs:
 
       - name: Configure deployer identity
         run: |
-          mkdir -p ~/.config/stellar/identity
-          echo "${{ secrets.STELLAR_DEPLOYER_SECRET_KEY }}" > ~/.config/stellar/identity/deployer.txt
-          stellar keys use deployer || true
+          stellar keys generate --global deployer --network testnet --fund
 
       - name: Build all contracts
         run: |
