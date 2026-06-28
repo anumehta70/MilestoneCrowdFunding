@@ -9,7 +9,7 @@ fn advance_time(env: &Env, seconds: u64) {
     let current = env.ledger().timestamp();
     env.ledger().set(LedgerInfo {
         timestamp: current + seconds,
-        protocol_version: 21,
+        protocol_version: 22,
         sequence_number: env.ledger().sequence(),
         network_id: Default::default(),
         base_reserve: 10,
