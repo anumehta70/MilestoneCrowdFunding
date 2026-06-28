@@ -9,7 +9,7 @@ fn advance_time(env: &Env, seconds: u64) {
     let current = env.ledger().timestamp();
     env.ledger().set(LedgerInfo {
         timestamp: current + seconds,
-        protocol_version: env.ledger().protocol_version(),
+        protocol_version: 21,
         sequence_number: env.ledger().sequence(),
         network_id: Default::default(),
         base_reserve: 10,
@@ -20,7 +20,7 @@ fn advance_time(env: &Env, seconds: u64) {
 }
 
 /// Deploys a test Stellar Asset Contract and mints `amount` to `to`.
-fn create_token_and_mint<'a>(env: &Env, admin: &Address, to: &Address, amount: i128) -> Address {
+fn create_token_and_mint(env: &Env, admin: &Address, to: &Address, amount: i128) -> Address {
     let sac = env.register_stellar_asset_contract_v2(admin.clone());
     let token_address = sac.address();
     let asset_client = StellarAssetClient::new(env, &token_address);

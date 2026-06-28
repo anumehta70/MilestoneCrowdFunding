@@ -12,6 +12,7 @@
 //! Registry --(reads live status)--> Escrow --(deposits/withdraws)--> Vault
 //! ```
 #![no_std]
+#![allow(deprecated)]
 
 use soroban_sdk::{contract, contracterror, contractimpl, contracttype, Address, Env, String, Symbol, Vec};
 
@@ -77,7 +78,7 @@ impl RegistryContract {
     ) -> Result<u32, RegistryError> {
         creator.require_auth();
 
-        if title.len() == 0 {
+        if title.is_empty() {
             return Err(RegistryError::InvalidInput);
         }
 

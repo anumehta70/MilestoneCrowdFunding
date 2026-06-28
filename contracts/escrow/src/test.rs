@@ -9,7 +9,7 @@ fn advance_time(env: &Env, seconds: u64) {
     let current = env.ledger().timestamp();
     env.ledger().set(LedgerInfo {
         timestamp: current + seconds,
-        protocol_version: env.ledger().protocol_version(),
+        protocol_version: 21,
         sequence_number: env.ledger().sequence(),
         network_id: Default::default(),
         base_reserve: 10,
@@ -19,7 +19,7 @@ fn advance_time(env: &Env, seconds: u64) {
     });
 }
 
-fn create_token<'a>(env: &Env, admin: &Address) -> Address {
+fn create_token(env: &Env, admin: &Address) -> Address {
     env.register_stellar_asset_contract_v2(admin.clone()).address()
 }
 

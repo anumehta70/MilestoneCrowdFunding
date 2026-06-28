@@ -13,6 +13,7 @@
 //! functions using a generated client from `contractimport!`, and those calls
 //! move a real Stellar Asset Contract (SAC) token, not just internal bookkeeping.
 #![no_std]
+#![allow(deprecated)]
 
 use soroban_sdk::{
     contract, contracterror, contractimpl, contracttype, log, vec, Address, Env, String, Symbol,

@@ -14,6 +14,7 @@
 //! the contract auditable and demo-safe while still demonstrating real
 //! custody of an on-chain asset.
 #![no_std]
+#![allow(deprecated)]
 
 use soroban_sdk::{
     contract, contracterror, contractimpl, contracttype, log, token, Address, Env, Symbol,
@@ -103,7 +104,7 @@ impl VaultContract {
             .get(&DataKey::Token)
             .ok_or(VaultError::NotInitialized)?;
         let token_client = token::Client::new(&env, &token_address);
-        token_client.transfer(&source, &env.current_contract_address(), &amount);
+        token_client.transfer(&source, env.current_contract_address(), &amount);
 
         let now = env.ledger().timestamp();
         let key = DataKey::Position(depositor.clone());
