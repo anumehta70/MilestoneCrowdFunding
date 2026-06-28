@@ -30,9 +30,13 @@ export default function HomePage() {
         return;
       }
       const ids = await listCampaignIds(VIEWER_ACCOUNT);
-      const results = await Promise.all(
-        ids.map((id) => getCampaignStatus(id, VIEWER_ACCOUNT))
-      );
+      const results = (
+        await Promise.allSettled(
+          ids.map((id) => getCampaignStatus(id, VIEWER_ACCOUNT))
+        )
+      )
+        .filter((r): r is PromiseFulfilledResult<CampaignStatus> => r.status === "fulfilled")
+        .map((r) => r.value);
       setCampaigns(results);
       setStatus("success");
     } catch (err) {
