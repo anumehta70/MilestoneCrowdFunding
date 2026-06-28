@@ -6,17 +6,9 @@ use soroban_sdk::token::{StellarAssetClient, TokenClient};
 use soroban_sdk::Env;
 
 fn advance_time(env: &Env, seconds: u64) {
-    let current = env.ledger().timestamp();
-    env.ledger().set(LedgerInfo {
-        timestamp: current + seconds,
-        protocol_version: 22,
-        sequence_number: env.ledger().sequence(),
-        network_id: Default::default(),
-        base_reserve: 10,
-        min_temp_entry_ttl: 16 * 60 * 60 * 24 / 5,
-        min_persistent_entry_ttl: 30 * 60 * 60 * 24 / 5,
-        max_entry_ttl: 365 * 60 * 60 * 24 / 5,
-    });
+    let mut info = env.ledger().get();
+    info.timestamp += seconds;
+    env.ledger().set(info);
 }
 
 /// Deploys a test Stellar Asset Contract and mints `amount` to `to`.
