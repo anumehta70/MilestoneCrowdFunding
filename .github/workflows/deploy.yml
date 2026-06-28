@@ -57,7 +57,7 @@ jobs:
         id: deploy_vault
         run: |
           VAULT_ID=$(stellar contract deploy \
-            --wasm contracts/vault/target/wasm32v1-none/release/vault.wasm \
+            --wasm target/wasm32v1-none/release/vault.wasm \
             --source deployer \
             --network ${{ github.event.inputs.network || 'testnet' }} )
           echo "vault_id=$VAULT_ID" >> "$GITHUB_OUTPUT"
@@ -67,7 +67,7 @@ jobs:
         id: deploy_escrow
         run: |
           ESCROW_ID=$(stellar contract deploy \
-            --wasm contracts/escrow/target/wasm32v1-none/release/escrow.wasm \
+            --wasm target/wasm32v1-none/release/escrow.wasm \
             --source deployer \
             --network ${{ github.event.inputs.network || 'testnet' }} )
           echo "escrow_id=$ESCROW_ID" >> "$GITHUB_OUTPUT"
@@ -77,7 +77,7 @@ jobs:
         id: deploy_registry
         run: |
           REGISTRY_ID=$(stellar contract deploy \
-            --wasm contracts/registry/target/wasm32v1-none/release/registry.wasm \
+            --wasm target/wasm32v1-none/release/registry.wasm \
             --source deployer \
             --network ${{ github.event.inputs.network || 'testnet' }} )
           echo "registry_id=$REGISTRY_ID" >> "$GITHUB_OUTPUT"

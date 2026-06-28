@@ -30,21 +30,21 @@ echo "    Token (native XLM SAC): $TOKEN_ID"
 
 echo "==> Deploying Vault contract"
 VAULT_ID=$(stellar contract deploy \
-  --wasm contracts/vault/target/wasm32v1-none/release/vault.wasm \
+  --wasm target/wasm32v1-none/release/vault.wasm \
   --source "$SOURCE" \
   --network "$NETWORK")
 echo "    Vault contract ID: $VAULT_ID"
 
 echo "==> Deploying Escrow contract"
 ESCROW_ID=$(stellar contract deploy \
-  --wasm contracts/escrow/target/wasm32v1-none/release/escrow.wasm \
+  --wasm target/wasm32v1-none/release/escrow.wasm \
   --source "$SOURCE" \
   --network "$NETWORK")
 echo "    Escrow contract ID: $ESCROW_ID"
 
 echo "==> Deploying Registry contract"
 REGISTRY_ID=$(stellar contract deploy \
-  --wasm contracts/registry/target/wasm32v1-none/release/registry.wasm \
+  --wasm target/wasm32v1-none/release/registry.wasm \
   --source "$SOURCE" \
   --network "$NETWORK")
 echo "    Registry contract ID: $REGISTRY_ID"
