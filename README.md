@@ -6,9 +6,6 @@ in an on-chain escrow and accrue yield while idle. Creators only unlock money
 in stages, as an arbiter approves each milestone — every pledge, approval,
 and release is a transparent, auditable on-chain event.
 
-> Built for the Stellar Orange Belt submission — see [`SUBMISSION_CHECKLIST.md`](./SUBMISSION_CHECKLIST.md)
-> for exactly how each requirement is satisfied and where to find the evidence.
-
 ## Why this architecture
 
 A real crowdfunding product needs more than "send money, mint an NFT." It
@@ -240,30 +237,6 @@ should see the sample campaign from the deploy script.
 - **Responsive design**: layouts are mobile-first Tailwind (single-column
   stacks below `sm:`, grid layouts from `sm:`/`lg:` up); see the
   screenshots in `docs/screenshots/`.
-
-## Submission Checklist Evidence
-
-Here is exactly how this project fulfills the core requirements for the Stellar Orange Belt submission:
-
-### Advanced smart contract development
-* **Inter-contract communication:** `contracts/escrow/src/lib.rs` calls `Vault.deposit` / `Vault.withdraw` via `vault_contract::Client`. `contracts/registry/src/lib.rs` calls `Escrow.get_total_pledged` via `escrow_contract::Client`.
-* **Event streaming & real-time updates:** Contracts emit events (`pledge_made`, `milestone_approved`, etc.). Frontend streams them live via `useEventStream.ts` polling Soroban RPC `getEvents`.
-* **CI/CD pipeline setup:** `.github/workflows/ci.yml` builds and tests all contracts and the frontend on every push.
-* **Smart contract deployment workflow:** `.github/workflows/deploy.yml` deploys all 3 contracts to the Stellar Testnet dynamically using GitHub Actions.
-* **Mobile responsive frontend development:** Tailwind mobile-first layouts are used throughout the UI.
-* **Error handling & loading states:** `StateViews.tsx` provides loading, error, and empty states. Wallet and Contract errors are caught and surfaced via custom UI toasts.
-* **Writing tests for contracts and frontend:** 27 Rust tests across the contracts, and 26 TypeScript tests across the frontend.
-* **Production-ready architecture practices:** Three-contract separation of concerns, persistent vs. instance storage, typed error enums, and a pinned Rust toolchain.
-
-### Required Deliverables
-
-* **Public GitHub repository:** This repository!
-* **README with complete documentation:** You're reading it!
-* **Minimum 10+ meaningful commits:** View the repository commit history.
-* **Live demo link (Vercel/Netlify):** [Insert your Vercel Link here]
-* **Contract deployment address:** [Insert your Escrow Contract ID here]
-* **Transaction hash for contract interaction:** [Insert your Transaction Hash here]
-* **Demo video link (1–2 minutes):** [Insert your Video Link here]
 
 ### Screenshots
 
