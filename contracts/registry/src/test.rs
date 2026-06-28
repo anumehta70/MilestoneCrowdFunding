@@ -6,7 +6,8 @@ use soroban_sdk::token::StellarAssetClient;
 use soroban_sdk::{vec, Env, String};
 
 fn create_token(env: &Env, admin: &Address) -> Address {
-    env.register_stellar_asset_contract_v2(admin.clone()).address()
+    env.register_stellar_asset_contract_v2(admin.clone())
+        .address()
 }
 
 fn mint_to(env: &Env, token: &Address, to: &Address, amount: i128) {
@@ -77,7 +78,10 @@ fn test_register_campaign_assigns_sequential_ids() {
     assert_eq!(meta.id, 0);
     assert_eq!(meta.creator, setup.creator);
     assert_eq!(meta.escrow_address, setup.escrow_id);
-    assert_eq!(meta.title, String::from_str(env, "Solar Lantern for Rural Schools"));
+    assert_eq!(
+        meta.title,
+        String::from_str(env, "Solar Lantern for Rural Schools")
+    );
 }
 
 #[test]

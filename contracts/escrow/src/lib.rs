@@ -26,9 +26,7 @@ mod test;
 // and call it directly from this contract. This is the standard Soroban
 // cross-contract pattern: build the dependency first, then import its wasm.
 mod vault_contract {
-    soroban_sdk::contractimport!(
-        file = "../../target/wasm32v1-none/release/vault.wasm"
-    );
+    soroban_sdk::contractimport!(file = "../../target/wasm32v1-none/release/vault.wasm");
 }
 
 #[contracttype]
@@ -127,8 +125,12 @@ impl EscrowContract {
         env.storage().instance().set(&DataKey::Goal, &goal);
         env.storage().instance().set(&DataKey::Deadline, &deadline);
         env.storage().instance().set(&DataKey::TotalPledged, &0i128);
-        env.storage().instance().set(&DataKey::TotalReleased, &0i128);
-        env.storage().instance().set(&DataKey::Milestones, &stored_milestones);
+        env.storage()
+            .instance()
+            .set(&DataKey::TotalReleased, &0i128);
+        env.storage()
+            .instance()
+            .set(&DataKey::Milestones, &stored_milestones);
         env.storage()
             .instance()
             .set(&DataKey::Backers, &Vec::<Address>::new(&env));
@@ -164,7 +166,11 @@ impl EscrowContract {
         // campaign's own contract address as the position key, so all
         // backers' pledges pool together and accrue yield collectively.
         // The vault pulls the real token directly from `backer` (source).
-        let vault_address: Address = env.storage().instance().get(&DataKey::VaultAddress).unwrap();
+        let vault_address: Address = env
+            .storage()
+            .instance()
+            .get(&DataKey::VaultAddress)
+            .unwrap();
         let vault_client = vault_contract::Client::new(&env, &vault_address);
         let campaign_address = env.current_contract_address();
         vault_client.deposit(&backer, &campaign_address, &amount);
@@ -185,16 +191,26 @@ impl EscrowContract {
             env.storage().instance().set(&DataKey::Backers, &backers);
         }
 
-        let total_pledged: i128 = env.storage().instance().get(&DataKey::TotalPledged).unwrap();
+        let total_pledged: i128 = env
+            .storage()
+            .instance()
+            .get(&DataKey::TotalPledged)
+            .unwrap();
         let updated_total = total_pledged + amount;
-        env.storage().instance().set(&DataKey::TotalPledged, &updated_total);
+        env.storage()
+            .instance()
+            .set(&DataKey::TotalPledged, &updated_total);
 
         env.events().publish(
             (Symbol::new(&env, "pledge_made"),),
             (backer, amount, updated_total),
         );
 
-        log!(&env, "escrow: pledge accepted total_pledged={}", updated_total);
+        log!(
+            &env,
+            "escrow: pledge accepted total_pledged={}",
+            updated_total
+        );
         Ok(updated_total)
     }
 
@@ -213,7 +229,11 @@ impl EscrowContract {
             return Err(EscrowError::MilestoneAlreadyApproved);
         }
 
-        let total_pledged: i128 = env.storage().instance().get(&DataKey::TotalPledged).unwrap();
+        let total_pledged: i128 = env
+            .storage()
+            .instance()
+            .get(&DataKey::TotalPledged)
+            .unwrap();
         let goal: i128 = env.storage().instance().get(&DataKey::Goal).unwrap();
         if total_pledged < goal {
             return Err(EscrowError::GoalNotReached);
@@ -221,12 +241,12 @@ impl EscrowContract {
 
         milestone.approved = true;
         milestones.set(milestone_index, milestone);
-        env.storage().instance().set(&DataKey::Milestones, &milestones);
+        env.storage()
+            .instance()
+            .set(&DataKey::Milestones, &milestones);
 
-        env.events().publish(
-            (Symbol::new(&env, "milestone_approved"),),
-            milestone_index,
-        );
+        env.events()
+            .publish((Symbol::new(&env, "milestone_approved"),), milestone_index);
         Ok(())
     }
 
@@ -259,7 +279,11 @@ impl EscrowContract {
         let goal: i128 = env.storage().instance().get(&DataKey::Goal).unwrap();
         let release_amount = (goal * milestone.release_bps as i128) / 10_000;
 
-        let vault_address: Address = env.storage().instance().get(&DataKey::VaultAddress).unwrap();
+        let vault_address: Address = env
+            .storage()
+            .instance()
+            .get(&DataKey::VaultAddress)
+            .unwrap();
         let vault_client = vault_contract::Client::new(&env, &vault_address);
         let campaign_address = env.current_contract_address();
         let creator: Address = env.storage().instance().get(&DataKey::Creator).unwrap();
@@ -273,9 +297,15 @@ impl EscrowContract {
 
         milestone.released = true;
         milestones.set(milestone_index, milestone);
-        env.storage().instance().set(&DataKey::Milestones, &milestones);
+        env.storage()
+            .instance()
+            .set(&DataKey::Milestones, &milestones);
 
-        let total_released: i128 = env.storage().instance().get(&DataKey::TotalReleased).unwrap();
+        let total_released: i128 = env
+            .storage()
+            .instance()
+            .get(&DataKey::TotalReleased)
+            .unwrap();
         let updated_released = total_released + release_amount;
         env.storage()
             .instance()
@@ -286,7 +316,12 @@ impl EscrowContract {
             (milestone_index, release_amount, updated_released),
         );
 
-        log!(&env, "escrow: released milestone={} amount={}", milestone_index, release_amount);
+        log!(
+            &env,
+            "escrow: released milestone={} amount={}",
+            milestone_index,
+            release_amount
+        );
         Ok(release_amount)
     }
 
@@ -302,7 +337,11 @@ impl EscrowContract {
             return Err(EscrowError::CampaignNotExpired);
         }
 
-        let total_pledged: i128 = env.storage().instance().get(&DataKey::TotalPledged).unwrap();
+        let total_pledged: i128 = env
+            .storage()
+            .instance()
+            .get(&DataKey::TotalPledged)
+            .unwrap();
         let goal: i128 = env.storage().instance().get(&DataKey::Goal).unwrap();
         if total_pledged >= goal {
             return Err(EscrowError::GoalNotReached); // goal was reached; no refunds, only milestone flow
@@ -319,7 +358,11 @@ impl EscrowContract {
             return Err(EscrowError::NoPledgeFound);
         }
 
-        let vault_address: Address = env.storage().instance().get(&DataKey::VaultAddress).unwrap();
+        let vault_address: Address = env
+            .storage()
+            .instance()
+            .get(&DataKey::VaultAddress)
+            .unwrap();
         let vault_client = vault_contract::Client::new(&env, &vault_address);
         let campaign_address = env.current_contract_address();
         vault_client.withdraw(&campaign_address, &backer, &pledged_amount);
@@ -337,11 +380,17 @@ impl EscrowContract {
     // ---- read-only views ----
 
     pub fn get_total_pledged(env: Env) -> i128 {
-        env.storage().instance().get(&DataKey::TotalPledged).unwrap_or(0)
+        env.storage()
+            .instance()
+            .get(&DataKey::TotalPledged)
+            .unwrap_or(0)
     }
 
     pub fn get_total_released(env: Env) -> i128 {
-        env.storage().instance().get(&DataKey::TotalReleased).unwrap_or(0)
+        env.storage()
+            .instance()
+            .get(&DataKey::TotalReleased)
+            .unwrap_or(0)
     }
 
     pub fn get_milestones(env: Env) -> Vec<Milestone> {

@@ -12,7 +12,8 @@ fn advance_time(env: &Env, seconds: u64) {
 }
 
 fn create_token(env: &Env, admin: &Address) -> Address {
-    env.register_stellar_asset_contract_v2(admin.clone()).address()
+    env.register_stellar_asset_contract_v2(admin.clone())
+        .address()
 }
 
 fn mint_to(env: &Env, token: &Address, to: &Address, amount: i128) {

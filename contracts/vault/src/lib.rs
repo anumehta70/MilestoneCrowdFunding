@@ -71,11 +71,14 @@ impl VaultContract {
         if env.storage().instance().has(&DataKey::Initialized) {
             return Err(VaultError::AlreadyInitialized);
         }
-        env.storage().instance().set(&DataKey::Controller, &controller);
+        env.storage()
+            .instance()
+            .set(&DataKey::Controller, &controller);
         env.storage().instance().set(&DataKey::Token, &token);
         env.storage().instance().set(&DataKey::Initialized, &true);
 
-        env.events().publish((Symbol::new(&env, "vault_init"),), controller);
+        env.events()
+            .publish((Symbol::new(&env, "vault_init"),), controller);
         Ok(())
     }
 
@@ -130,7 +133,11 @@ impl VaultContract {
             (depositor, amount, new_principal),
         );
 
-        log!(&env, "vault: deposit accepted, new_principal={}", new_principal);
+        log!(
+            &env,
+            "vault: deposit accepted, new_principal={}",
+            new_principal
+        );
         Ok(new_principal)
     }
 
@@ -208,7 +215,12 @@ impl VaultContract {
             (depositor, amount, remaining),
         );
 
-        log!(&env, "vault: withdraw paid_out={} remaining={}", amount, remaining);
+        log!(
+            &env,
+            "vault: withdraw paid_out={} remaining={}",
+            amount,
+            remaining
+        );
         Ok(amount)
     }
 

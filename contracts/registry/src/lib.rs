@@ -14,14 +14,14 @@
 #![no_std]
 #![allow(deprecated)]
 
-use soroban_sdk::{contract, contracterror, contractimpl, contracttype, Address, Env, String, Symbol, Vec};
+use soroban_sdk::{
+    contract, contracterror, contractimpl, contracttype, Address, Env, String, Symbol, Vec,
+};
 
 mod test;
 
 mod escrow_contract {
-    soroban_sdk::contractimport!(
-        file = "../../target/wasm32v1-none/release/escrow.wasm"
-    );
+    soroban_sdk::contractimport!(file = "../../target/wasm32v1-none/release/escrow.wasm");
 }
 
 #[contracttype]
@@ -91,7 +91,9 @@ impl RegistryContract {
             category,
         };
 
-        env.storage().persistent().set(&DataKey::Campaign(next_id), &meta);
+        env.storage()
+            .persistent()
+            .set(&DataKey::Campaign(next_id), &meta);
 
         let mut all_ids: Vec<u32> = env
             .storage()
@@ -100,7 +102,9 @@ impl RegistryContract {
             .unwrap_or_else(|| Vec::new(&env));
         all_ids.push_back(next_id);
         env.storage().instance().set(&DataKey::AllIds, &all_ids);
-        env.storage().instance().set(&DataKey::NextId, &(next_id + 1));
+        env.storage()
+            .instance()
+            .set(&DataKey::NextId, &(next_id + 1));
 
         env.events().publish(
             (Symbol::new(&env, "campaign_registered"),),

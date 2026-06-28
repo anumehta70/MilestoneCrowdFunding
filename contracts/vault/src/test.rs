@@ -40,7 +40,12 @@ fn setup() -> TestSetup {
     let token = create_token_and_mint(&env, &admin, &admin, 0);
     client.initialize(&controller, &token);
 
-    TestSetup { env, client, token, controller }
+    TestSetup {
+        env,
+        client,
+        token,
+        controller,
+    }
 }
 
 fn mint_to(env: &Env, token: &Address, to: &Address, amount: i128) {
@@ -147,7 +152,9 @@ fn test_withdraw_more_than_balance_fails() {
     mint_to(&setup.env, &setup.token, &source, 1_000_000);
 
     setup.client.deposit(&source, &depositor, &1_000_000);
-    let res = setup.client.try_withdraw(&depositor, &recipient, &2_000_000);
+    let res = setup
+        .client
+        .try_withdraw(&depositor, &recipient, &2_000_000);
     assert!(res.is_err());
 }
 
