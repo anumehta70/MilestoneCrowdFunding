@@ -241,10 +241,40 @@ should see the sample campaign from the deploy script.
   stacks below `sm:`, grid layouts from `sm:`/`lg:` up); see the
   screenshots in `docs/screenshots/`.
 
-## Submission checklist evidence
+## Submission Checklist Evidence
 
-See [`SUBMISSION_CHECKLIST.md`](./SUBMISSION_CHECKLIST.md) for the full
-mapping of every requirement to its file, command, or screenshot.
+Here is exactly how this project fulfills the core requirements for the Stellar Orange Belt submission:
+
+### Advanced smart contract development
+* **Inter-contract communication:** `contracts/escrow/src/lib.rs` calls `Vault.deposit` / `Vault.withdraw` via `vault_contract::Client`. `contracts/registry/src/lib.rs` calls `Escrow.get_total_pledged` via `escrow_contract::Client`.
+* **Event streaming & real-time updates:** Contracts emit events (`pledge_made`, `milestone_approved`, etc.). Frontend streams them live via `useEventStream.ts` polling Soroban RPC `getEvents`.
+* **CI/CD pipeline setup:** `.github/workflows/ci.yml` builds and tests all contracts and the frontend on every push.
+* **Smart contract deployment workflow:** `.github/workflows/deploy.yml` deploys all 3 contracts to the Stellar Testnet dynamically using GitHub Actions.
+* **Mobile responsive frontend development:** Tailwind mobile-first layouts are used throughout the UI.
+* **Error handling & loading states:** `StateViews.tsx` provides loading, error, and empty states. Wallet and Contract errors are caught and surfaced via custom UI toasts.
+* **Writing tests for contracts and frontend:** 27 Rust tests across the contracts, and 26 TypeScript tests across the frontend.
+* **Production-ready architecture practices:** Three-contract separation of concerns, persistent vs. instance storage, typed error enums, and a pinned Rust toolchain.
+
+### Required Deliverables
+
+* **Public GitHub repository:** This repository!
+* **README with complete documentation:** You're reading it!
+* **Minimum 10+ meaningful commits:** View the repository commit history.
+* **Live demo link (Vercel/Netlify):** [Insert your Vercel Link here]
+* **Contract deployment address:** [Insert your Escrow Contract ID here]
+* **Transaction hash for contract interaction:** [Insert your Transaction Hash here]
+* **Demo video link (1–2 minutes):** [Insert your Video Link here]
+
+### Screenshots
+
+**Mobile Responsive UI**
+![Mobile UI](./images/Mobile_responsive_%20UI.png)
+
+**CI/CD Pipeline Running**
+![CI/CD Pipeline](./images/CI_CD_pipeline%20_running.png)
+
+**Test Output (3+ passing tests)**
+![Test Output](./images/test_output.png)
 
 ## License
 
