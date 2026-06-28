@@ -28,9 +28,9 @@ artifact that satisfies it.
 | Live demo link (Vercel/Netlify) | Deploy `frontend/` to Vercel (root directory = `frontend`); add the resulting URL here. |
 | Contract deployment address | Output of `scripts/deploy.sh` or the `deploy.yml` workflow run summary; paste the three contract IDs here once deployed. |
 | Transaction hash for contract interaction | Printed by `stellar contract invoke --send=yes` during `scripts/deploy.sh` (the `register_campaign` call), or any pledge you make through the UI — paste it here. |
-| Screenshot: mobile responsive UI | `docs/screenshots/mobile-home.png`, `docs/screenshots/mobile-campaign.png` |
-| Screenshot: CI/CD pipeline running | `docs/screenshots/ci-pipeline.png` (Actions tab, green checks on `ci.yml`) |
-| Screenshot: test output with 3+ passing tests | `docs/screenshots/test-output-contracts.png`, `docs/screenshots/test-output-frontend.png` |
+| Screenshot: mobile responsive UI | ![Mobile UI](./images/Mobile_responsive_%20UI.png) |
+| Screenshot: CI/CD pipeline running | ![CI/CD Pipeline](./images/CI_CD_pipeline%20_running.png) |
+| Screenshot: test output with 3+ passing tests | ![Test Output](./images/test_output.png) |
 | Demo video link (1–2 min) | Add the link here once recorded; suggested shot list in `docs/DEMO_SCRIPT.md`. |
 
 ## Suggested commit sequence
