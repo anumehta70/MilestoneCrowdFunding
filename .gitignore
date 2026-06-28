@@ -1,0 +1,24 @@
+# Rust / Soroban
+/target
+**/target
+Cargo.lock.bak
+*.wasm.bak
+
+# Stellar / Soroban CLI local config
+.stellar/
+
+# Editor / OS
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Env files (never commit secrets)
+.env
+.env.local
+.env.*.local
+
+# Frontend (also covered by frontend/.gitignore but kept here for safety)
+frontend/node_modules
+frontend/.next
+frontend/.vercel
