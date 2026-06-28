@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .input {
+    @apply w-full rounded-xl border border-ledger-700 bg-ledger-900 px-4 py-3 text-ledger-50 outline-none;
+  }
+  .input:focus {
+    @apply border-brass-500;
+  }
+  .input::placeholder {
+    @apply text-ledger-600;
+  }
+}
+
 @layer base {
   * {
     @apply border-ledger-700;

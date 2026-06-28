@@ -202,23 +202,6 @@ export default function CreateCampaignPage() {
         </form>
       </main>
 
-      <style jsx global>{`
-        .input {
-          width: 100%;
-          border-radius: 0.75rem;
-          border: 1px solid theme("colors.ledger.700");
-          background-color: theme("colors.ledger.900");
-          padding: 0.75rem 1rem;
-          color: theme("colors.ledger.50");
-          outline: none;
-        }
-        .input:focus {
-          border-color: theme("colors.brass.500");
-        }
-        .input::placeholder {
-          color: theme("colors.ledger.600");
-        }
-      `}</style>
     </div>
   );
 }
