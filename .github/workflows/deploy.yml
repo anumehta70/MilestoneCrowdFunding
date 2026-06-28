@@ -64,6 +64,7 @@ jobs:
       - name: Deploy Escrow contract
         id: deploy_escrow
         run: |
+          sleep 5
           ESCROW_ID=$(stellar contract deploy \
             --wasm target/wasm32v1-none/release/escrow.wasm \
             --source deployer \
@@ -74,6 +75,7 @@ jobs:
       - name: Deploy Registry contract
         id: deploy_registry
         run: |
+          sleep 5
           REGISTRY_ID=$(stellar contract deploy \
             --wasm target/wasm32v1-none/release/registry.wasm \
             --source deployer \
