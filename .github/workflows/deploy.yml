@@ -33,13 +33,27 @@ jobs:
         with:
           targets: wasm32v1-none
 
+      - name: Cache cargo registry & bin
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            ~/.cargo/bin
+          key: ${{ runner.os }}-cargo-stellar-cli-v26
+          restore-keys: |
+            ${{ runner.os }}-cargo-
+
       - name: Install system dependencies
         run: sudo apt-get update && sudo apt-get install -y libdbus-1-dev pkg-config libudev-dev
 
       - name: Install Stellar CLI
         env:
           CARGO_HTTP_MULTIPLEXING: false
-        run: cargo install --locked stellar-cli --version ^26
+        run: |
+          if ! command -v stellar &> /dev/null; then
+            cargo install --locked stellar-cli --version ^26
+          fi
 
       - name: Configure deployer identity
         run: |
@@ -64,7 +78,7 @@ jobs:
       - name: Deploy Escrow contract
         id: deploy_escrow
         run: |
-          sleep 5
+          sleep 15
           ESCROW_ID=$(stellar contract deploy \
             --wasm target/wasm32v1-none/release/escrow.wasm \
             --source deployer \
@@ -75,7 +89,7 @@ jobs:
       - name: Deploy Registry contract
         id: deploy_registry
         run: |
-          sleep 5
+          sleep 15
           REGISTRY_ID=$(stellar contract deploy \
             --wasm target/wasm32v1-none/release/registry.wasm \
             --source deployer \
