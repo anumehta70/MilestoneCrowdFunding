@@ -26,7 +26,7 @@ mod test;
 // cross-contract pattern: build the dependency first, then import its wasm.
 mod vault_contract {
     soroban_sdk::contractimport!(
-        file = "../vault/target/wasm32v1-none/release/vault.wasm"
+        file = "../../target/wasm32v1-none/release/vault.wasm"
     );
 }
 
