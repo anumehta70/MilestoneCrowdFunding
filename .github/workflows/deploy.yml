@@ -55,50 +55,9 @@ jobs:
 
       - name: Configure deployer identities
         run: |
-          stellar keys generate vault_deployer --network testnet --fund
-          stellar keys generate escrow_deployer --network testnet --fund
-          stellar keys generate registry_deployer --network testnet --fund
+          stellar keys generate deployer --network testnet --fund
 
-      - name: Build all contracts
+      - name: Build and deploy contracts
         run: |
-          stellar contract build --package vault
-          stellar contract build --package escrow
-          stellar contract build --package registry
-
-      - name: Deploy Vault contract
-        id: deploy_vault
-        run: |
-          VAULT_ID=$(stellar contract deploy \
-            --wasm target/wasm32v1-none/release/vault.wasm \
-            --source vault_deployer \
-            --network ${{ github.event.inputs.network || 'testnet' }} )
-          echo "vault_id=$VAULT_ID" >> "$GITHUB_OUTPUT"
-          echo "Deployed Vault: $VAULT_ID"
-
-      - name: Deploy Escrow contract
-        id: deploy_escrow
-        run: |
-          ESCROW_ID=$(stellar contract deploy \
-            --wasm target/wasm32v1-none/release/escrow.wasm \
-            --source escrow_deployer \
-            --network ${{ github.event.inputs.network || 'testnet' }} )
-          echo "escrow_id=$ESCROW_ID" >> "$GITHUB_OUTPUT"
-          echo "Deployed Escrow: $ESCROW_ID"
-
-      - name: Deploy Registry contract
-        id: deploy_registry
-        run: |
-          REGISTRY_ID=$(stellar contract deploy \
-            --wasm target/wasm32v1-none/release/registry.wasm \
-            --source registry_deployer \
-            --network ${{ github.event.inputs.network || 'testnet' }} )
-          echo "registry_id=$REGISTRY_ID" >> "$GITHUB_OUTPUT"
-          echo "Deployed Registry: $REGISTRY_ID"
-
-      - name: Print deployment summary
-        run: |
-          echo "## Deployment Summary" >> "$GITHUB_STEP_SUMMARY"
-          echo "- Network: ${{ github.event.inputs.network || 'testnet' }}" >> "$GITHUB_STEP_SUMMARY"
-          echo "- Vault:    ${{ steps.deploy_vault.outputs.vault_id }}" >> "$GITHUB_STEP_SUMMARY"
-          echo "- Escrow:   ${{ steps.deploy_escrow.outputs.escrow_id }}" >> "$GITHUB_STEP_SUMMARY"
-          echo "- Registry: ${{ steps.deploy_registry.outputs.registry_id }}" >> "$GITHUB_STEP_SUMMARY"
+          chmod +x scripts/deploy.sh
+          ./scripts/deploy.sh
