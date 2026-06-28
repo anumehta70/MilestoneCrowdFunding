@@ -35,6 +35,8 @@ VAULT_ID=$(stellar contract deploy \
   --network "$NETWORK")
 echo "    Vault contract ID: $VAULT_ID"
 
+sleep 5
+
 echo "==> Deploying Escrow contract"
 ESCROW_ID=$(stellar contract deploy \
   --wasm target/wasm32v1-none/release/escrow.wasm \
@@ -42,12 +44,16 @@ ESCROW_ID=$(stellar contract deploy \
   --network "$NETWORK")
 echo "    Escrow contract ID: $ESCROW_ID"
 
+sleep 5
+
 echo "==> Deploying Registry contract"
 REGISTRY_ID=$(stellar contract deploy \
   --wasm target/wasm32v1-none/release/registry.wasm \
   --source "$SOURCE" \
   --network "$NETWORK")
 echo "    Registry contract ID: $REGISTRY_ID"
+
+sleep 5
 
 DEPLOYER_ADDRESS=$(stellar keys address "$SOURCE")
 
@@ -60,6 +66,8 @@ stellar contract invoke \
   -- initialize \
   --controller "$ESCROW_ID" \
   --token "$TOKEN_ID"
+
+sleep 5
 
 DEADLINE=$(($(date +%s) + 30 * 86400))
 
@@ -77,6 +85,8 @@ stellar contract invoke \
   --deadline "$DEADLINE" \
   --milestones '[["Prototype complete",4000],["Beta launch",3000],["Public release",3000]]'
 
+sleep 5
+
 echo "==> Registering the campaign in the Registry (this is your sample tx hash)"
 stellar contract invoke \
   --id "$REGISTRY_ID" \
@@ -88,6 +98,8 @@ stellar contract invoke \
   --title "Solar Lantern for Rural Schools" \
   --category "Education" \
   --escrow_address "$ESCROW_ID"
+
+sleep 5
 
 cat <<EOF
 
