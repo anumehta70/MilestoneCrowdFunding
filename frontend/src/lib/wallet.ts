@@ -25,7 +25,8 @@ export class WalletRejectedError extends Error {
 
 export async function isWalletInstalled(): Promise<boolean> {
   if (typeof window === "undefined") return false;
-  return await isConnected();
+  const res = await isConnected();
+  return res.isConnected;
 }
 
 export async function connectWallet(): Promise<{ publicKey: string; network: string }> {
