@@ -87,11 +87,12 @@ stellar keys generate --global deployer --network testnet --fund
 NETWORK=testnet SOURCE=deployer ./scripts/deploy.sh
 ```
 
-The script prints the Vault, Escrow, and Registry contract IDs. Copy the Registry contract ID into `.env.local`.
+The script prints the Vault, Escrow, and Registry contract IDs. Copy the Registry contract ID into `frontend/.env.local`.
 
 ### Run the Frontend
 
 ```bash
+cd frontend
 cp .env.example .env.local   # then fill in NEXT_PUBLIC_REGISTRY_CONTRACT_ID
 npm install
 npm run dev

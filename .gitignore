@@ -18,7 +18,7 @@ Cargo.lock.bak
 .env.local
 .env.*.local
 
-# Frontend
-node_modules
-.next
-.vercel
+# Frontend (also covered by frontend/.gitignore but kept here for safety)
+frontend/node_modules
+frontend/.next
+frontend/.vercel
