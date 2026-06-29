@@ -253,9 +253,16 @@ should see the sample campaign from the deploy script.
 
 MIT — see [`LICENSE`](./LICENSE).
 
-## Required Deliverables
+## ✅ Submission Checklist & Deliverables
 
-* **Live demo link:** [Insert your Vercel URL here]
-* **Contract deployment address:** `CAJYMBLXXVCSDD5WA2ATT4UAOTWCNLPBULLRA7MZDT6NFAYBA2E2ATKX`
-* **Transaction hash:** [f1102233...](https://stellar.expert/explorer/testnet/tx/f1102233794d5e9e05e2e13013abbbd332175fd5258a6eb83c91286edcf517b9)
-* **Demo video link:** [Insert your Video link here]
+Here are the required deliverables for this submission:
+
+- **Public GitHub repository:** [Insert your GitHub Repo URL here]
+- **README with complete documentation:** (This file!)
+- **Minimum 10+ meaningful commits:** Completed (View commit history)
+- **Live demo link (Vercel):** [Insert your Vercel URL here]
+- **Contract deployment address:** `CCLADM5BEFRQYHCCBIDE7TAPJJVOVOKIFUMXRIS7SYVEOXSXLRBWGG52` (Fresh Escrow Contract)
+- **Transaction hash:** [b9a6ca417...](https://stellar.expert/explorer/testnet/tx/b9a6ca41713ce2605d77876bc1ade4bf69785f7f75b323ba20f5d110296ec2a9)
+- **Demo video link:** [Insert your 1-2 minute Video link here]
+
+*(Note: Screenshots showing the Mobile responsive UI, the CI/CD pipeline running, and Test output with 3+ passing tests are included above in the Screenshots section).*
