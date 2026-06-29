@@ -52,6 +52,60 @@ Vault`), not a single contract dressed up to look like several.
 │   ├── vault/            # Soroban contract: yield-bearing pool
 │   ├── escrow/           # Soroban contract: campaign milestone logic
 │   └── registry/         # Soroban contract: campaign discovery & status
+# Vaulted — Milestone Crowdfunding on Stellar
+
+Vaulted is a milestone-gated crowdfunding platform built on Soroban (Stellar's
+smart contract platform). Backers pledge funds to a campaign; those funds sit
+in an on-chain escrow and accrue yield while idle. Creators only unlock money
+in stages, as an arbiter approves each milestone — every pledge, approval,
+and release is a transparent, auditable on-chain event.
+
+## Why this architecture
+
+A real crowdfunding product needs more than "send money, mint an NFT." It
+needs trust: backers want assurance their money won't just disappear, and
+creators want to be paid for work actually delivered. Three contracts model
+that directly:
+
+```
+                 registers campaigns,                 holds pledges,
+                 reads live status                    manages milestones
+        ┌─────────────┐   ────────────▶   ┌─────────────┐
+        │  Registry   │                   │   Escrow    │
+        └─────────────┘   ◀────────────   └──────┬──────┘
+                            campaign_status()            │
+                                                          │ deposit() / withdraw()
+                                                          ▼
+                                                   ┌─────────────┐
+                                                   │    Vault    │
+                                                   └─────────────┘
+                                              holds idle funds,
+                                              accrues simple yield
+```
+
+- **Vault** — a minimal yield-bearing pool. Holds principal per depositor and
+  accrues linear interest based on ledger timestamp. Only its `controller`
+  (the Escrow contract) can deposit or withdraw on a depositor's behalf.
+- **Escrow** — owns a single campaign's lifecycle: accepting pledges,
+  tracking milestones, approving and releasing funds, and issuing refunds if
+  a campaign fails to reach its goal. Every pledge and release is a real
+  **cross-contract call** into the Vault contract.
+- **Registry** — the public discovery layer. Anyone can list a deployed
+  Escrow contract as a campaign. Its `campaign_status` view **cross-calls
+  into the Escrow contract** to read live state, so the registry never goes
+  stale — it always reflects the source of truth.
+
+This gives a genuine three-contract dependency graph (`Registry → Escrow →
+Vault`), not a single contract dressed up to look like several.
+
+## Repository layout
+
+```
+.
+├── contracts/
+│   ├── vault/            # Soroban contract: yield-bearing pool
+│   ├── escrow/           # Soroban contract: campaign milestone logic
+│   └── registry/         # Soroban contract: campaign discovery & status
 ├── frontend/             # Next.js 14 (App Router) + TypeScript dApp
 ├── scripts/
 │   └── deploy.sh         # One-command testnet deployment + wiring
@@ -59,8 +113,7 @@ Vault`), not a single contract dressed up to look like several.
 │   ├── ci.yml            # Tests, lint, build — runs on every push/PR
 │   └── deploy.yml        # Manual/tag-triggered contract deployment
 ├── docs/                 # Architecture notes, demo script
-├── rust-toolchain.toml   # Pinned toolchain for reproducible builds
-└── SUBMISSION_CHECKLIST.md
+└── rust-toolchain.toml   # Pinned toolchain for reproducible builds
 ```
 
 ## Smart contracts
@@ -249,10 +302,6 @@ should see the sample campaign from the deploy script.
 **Test Output (3+ passing tests)**
 ![Test Output](./images/test_output.png)
 
-## License
-
-MIT — see [`LICENSE`](./LICENSE).
-
 ## ✅ Submission Checklist & Deliverables
 
 Here are the required deliverables for this submission:
@@ -263,6 +312,6 @@ Here are the required deliverables for this submission:
 - **Live demo link (Vercel):** [Insert your Vercel URL here]
 - **Contract deployment address:** `CCLADM5BEFRQYHCCBIDE7TAPJJVOVOKIFUMXRIS7SYVEOXSXLRBWGG52` (Fresh Escrow Contract)
 - **Transaction hash:** [b9a6ca417...](https://stellar.expert/explorer/testnet/tx/b9a6ca41713ce2605d77876bc1ade4bf69785f7f75b323ba20f5d110296ec2a9)
-- **Demo video link:** [Insert your 1-2 minute Video link here]
+- **Demo video link:** [Watch on Google Drive](https://drive.google.com/file/d/1XYoDWMFTn0EkLKJrf-lUs12sV08JrcMl/view?usp=sharing)
 
 *(Note: Screenshots showing the Mobile responsive UI, the CI/CD pipeline running, and Test output with 3+ passing tests are included above in the Screenshots section).*
