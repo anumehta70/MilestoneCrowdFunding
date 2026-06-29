@@ -34,7 +34,7 @@ Vaulted is an advanced, production-ready milestone-gated crowdfunding platform b
 
 Here are the required deliverables for this submission:
 
-- **Public GitHub repository:** [Insert your GitHub Repo URL here]
+- **Public GitHub repository:** [anumehta70/MilestoneCrowdFunding](https://github.com/anumehta70/MilestoneCrowdFunding)
 - **README with complete documentation:** (This file!)
 - **Minimum 10+ meaningful commits:** Completed (View commit history)
 - **Live demo link (Vercel):** [milestone-crowd-funding.vercel.app](https://milestone-crowd-funding.vercel.app/)
