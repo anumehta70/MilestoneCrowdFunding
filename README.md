@@ -4,7 +4,7 @@ Vaulted is an advanced, production-ready milestone-gated crowdfunding platform b
 
 ## 🔗 Live Demo & Video Pitch
 
-- **Live Platform**: [Insert your Vercel URL here]
+- **Live Platform**: [milestone-crowd-funding.vercel.app](https://milestone-crowd-funding.vercel.app/)
 - **Demo Video**: [Watch the Demo on Google Drive](https://drive.google.com/file/d/1XYoDWMFTn0EkLKJrf-lUs12sV08JrcMl/view?usp=sharing)
 
 ## 🌟 Key Features
@@ -37,7 +37,7 @@ Here are the required deliverables for this submission:
 - **Public GitHub repository:** [Insert your GitHub Repo URL here]
 - **README with complete documentation:** (This file!)
 - **Minimum 10+ meaningful commits:** Completed (View commit history)
-- **Live demo link (Vercel):** [Insert your Vercel URL here]
+- **Live demo link (Vercel):** [milestone-crowd-funding.vercel.app](https://milestone-crowd-funding.vercel.app/)
 - **Contract deployment address:** `CCLADM5BEFRQYHCCBIDE7TAPJJVOVOKIFUMXRIS7SYVEOXSXLRBWGG52` (Fresh Escrow Contract)
 - **Transaction hash:** [b9a6ca417...](https://stellar.expert/explorer/testnet/tx/b9a6ca41713ce2605d77876bc1ade4bf69785f7f75b323ba20f5d110296ec2a9)
 - **Demo video link:** [Watch on Google Drive](https://drive.google.com/file/d/1XYoDWMFTn0EkLKJrf-lUs12sV08JrcMl/view?usp=sharing)
