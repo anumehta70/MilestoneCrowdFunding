@@ -256,6 +256,6 @@ MIT — see [`LICENSE`](./LICENSE).
 ## Required Deliverables
 
 * **Live demo link:** [Insert your Vercel URL here]
-* **Contract deployment address:** CAJYMBLXXVCSDD5WA2ATT4UAOTWCNLPBULLRA7MZDT6NFAYBA2E2ATKX
-* **Transaction hash:** f1102233794d5e9e05e2e13013abbbd332175fd5258a6eb83c91286edcf517b9
+* **Contract deployment address:** `CAJYMBLXXVCSDD5WA2ATT4UAOTWCNLPBULLRA7MZDT6NFAYBA2E2ATKX`
+* **Transaction hash:** [f1102233...](https://stellar.expert/explorer/testnet/tx/f1102233794d5e9e05e2e13013abbbd332175fd5258a6eb83c91286edcf517b9)
 * **Demo video link:** [Insert your Video link here]
